@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://shukla_1817:DevConnect123@devconnector.d47q9lb.mongodb.net/?retryWrites=true&w=majority",
-  "jwtSecret": "HARGHARMODI"
+  "jwtSecret": "HARGHARMODI",
+  "githubClientId": "a623af7b7bcc53a6b218",
+  "githubSecret": "c37de9f2f4d9b9697306ee40817428f5ca26ba29"
 }
