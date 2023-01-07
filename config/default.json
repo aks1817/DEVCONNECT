@@ -1,4 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://shukla_1817:DevConnect123@devconnector.d47q9lb.mongodb.net/?retryWrites=true&w=majority",
-    "jwtSecret":"HARGHARMODI"
+  "mongoURI": "mongodb+srv://shukla_1817:DevConnect123@devconnector.d47q9lb.mongodb.net/?retryWrites=true&w=majority",
+  "jwtSecret": "HARGHARMODI"
 }
