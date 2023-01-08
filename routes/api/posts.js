@@ -31,7 +31,7 @@ router.post(
       res.json(post);
     } catch (err) {
       console.log(err.message);
-      res.send(500).send("Server error");
+      res.status(500).send("Server error");
     }
   }
 );
@@ -46,7 +46,7 @@ router.get("/", auth, async (req, res) => {
     return res.json(posts);
   } catch (err) {
     console.log(err.message);
-    res.send(500).send("Server error");
+    res.status(500).send("Server error");
   }
 });
 
@@ -66,7 +66,7 @@ router.get("/:id", auth, async (req, res) => {
     if (err.kind === "ObjectId") {
       return res.status(404).json({ msg: "Invalid Post Id" }); //For invalid length
     }
-    res.send(500).send("Server error");
+    res.status(500).send("Server error");
   }
 });
 
@@ -88,7 +88,61 @@ router.delete("/:id", auth, async (req, res) => {
     if (err.kind === "ObjectId") {
       return res.status(404).json({ msg: "Invalid Post Id" }); //For invalid length
     }
-    res.send(500).send("Server error");
+    res.status(500).send("Server error");
+  }
+});
+
+// @route PUT api/posts/like/:id
+// @desc  Like a post
+// @access Private
+
+router.put("/like/:id", auth, async (req, res) => {
+  try {
+    let post = await Post.findById(req.params.id);
+    // Check if post is already liked
+    if (
+      post.likes.filter((like) => like.user.toString() === req.user.id).length >
+      0
+    ) {
+      return res.status(400).json({ msg: "Post already liked" });
+    }
+    const newLike = {
+      user: req.user.id,
+    };
+    post.likes.unshift(newLike);
+    post.save();
+    res.json(post);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route PUT api/posts/unlike/:id
+// @desc  Unlike a post
+// @access Private
+
+router.put("/unlike/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    // Check if post is already liked
+    if (
+      post.likes.filter((like) => like.user.toString() === req.user.id)
+        .length === 0
+    ) {
+      return res.status(400).json({ msg: "Post has not been liked" });
+    }
+    //Get remove index
+    const removeIndex = post.likes
+      .map((item) => item.user)
+      .indexOf(req.user.id);
+
+    post.likes.splice(removeIndex, 1);
+    post.save();
+    res.json(post);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error");
   }
 });
 module.exports = router;
