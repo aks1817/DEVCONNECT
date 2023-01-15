@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import Navbar from "./components/layouts/Navbar";
 import Landing from "./components/layouts/Landing";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -9,8 +9,20 @@ import Alert from "./components/layouts/Alert";
 //Redux
 import { Provider } from "react-redux";
 import store from "./store";
+import setAuthToken from "./utils/setAuthToken";
+import { loadUser } from "./actions/auth";
 
-function App() {
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
+const App = () => {
+  useEffect(() => {
+    store.dispatch(
+      loadUser()
+    ); /*if we want to dispatch an action without using connect() the we use
+  store.dispatch(nameOfActionToDispatch())*/
+  }, []); /* If you want to run an effect and clean it up only once (on mount and unmount), you can pass an empty array ([]) as a second argument */
   return (
     <Provider store={store}>
       <Router>
@@ -28,6 +40,6 @@ function App() {
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;
