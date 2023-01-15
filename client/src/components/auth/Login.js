@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { login } from "../../actions/auth";
+import { Navigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ isAuthenticated, login }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -13,8 +16,12 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.error("SUCCESS");
+    login({ email, password });
   };
+  //If already loggedIn redirect to dashboard
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
   return (
     <section className="container">
       {/* <div className="alert alert-danger">Invalid credentials</div> */}
@@ -52,4 +59,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.prototype = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

@@ -4,6 +4,8 @@ import {
   REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
 } from "./types";
 import { setAlert } from "./alert";
 import setAuthToken from "../utils/setAuthToken";
@@ -11,6 +13,7 @@ import setAuthToken from "../utils/setAuthToken";
 //Load User
 const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
+    /* LocalStorage is a web storage object to store the data on the user’s computer locally, which means the stored data is saved across browser sessions and the data stored has no expiration time.*/
     setAuthToken(localStorage.token);
   }
   try {
@@ -42,6 +45,7 @@ const register =
         type: REGISTER_SUCCESS,
         payload: res.data,
       });
+      dispatch(loadUser());
     } catch (err) {
       const errors = err.response.data.errors;
       if (errors) {
@@ -53,4 +57,32 @@ const register =
     }
   };
 
-export { register, loadUser };
+//Login User
+const login =
+  ({ email, password }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ email, password });
+    try {
+      const res = await axios.post("/api/auth", body, config);
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(loadUser());
+    } catch (err) {
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.map((error) => dispatch(setAlert(error.msg, "danger"))); // we need to dispatch action from other actions
+      }
+      dispatch({
+        type: LOGIN_FAIL,
+      });
+    }
+  };
+
+export { register, loadUser, login };

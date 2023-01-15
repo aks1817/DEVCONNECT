@@ -18,6 +18,7 @@ if (localStorage.token) {
 
 const App = () => {
   useEffect(() => {
+    //This function will load use data even the page is reopen with expire time of token (auto login)
     store.dispatch(
       loadUser()
     ); /*if we want to dispatch an action without using connect() the we use
