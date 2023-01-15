@@ -29,7 +29,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   //redirect to dashboard after register
   if (isAuthenticated) {
-    return <Navigate to="/" />;
+    return <Navigate to="/dashboard" />;
   }
 
   return (

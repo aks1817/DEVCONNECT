@@ -20,7 +20,7 @@ const Login = ({ isAuthenticated, login }) => {
   };
   //If already loggedIn redirect to dashboard
   if (isAuthenticated) {
-    return <Navigate to="/" />;
+    return <Navigate to="/dashboard" />;
   }
   return (
     <section className="container">

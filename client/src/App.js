@@ -2,6 +2,8 @@ import "./App.css";
 import React, { Fragment, useEffect } from "react";
 import Navbar from "./components/layouts/Navbar";
 import Landing from "./components/layouts/Landing";
+import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
@@ -33,6 +35,15 @@ const App = () => {
             <Route exact path="/" element={<Landing />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/login" element={<Login />} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                  {/*  this will act as children for PrivateRoute */}
+                </PrivateRoute>
+              }
+            />
           </Routes>
           <section className="container">
             <Alert />
