@@ -3,6 +3,7 @@ import React, { Fragment, useEffect } from "react";
 import Navbar from "./components/layouts/Navbar";
 import Landing from "./components/layouts/Landing";
 import Dashboard from "./components/dashboard/Dashboard";
+import CreateProfile from "./components/profile-forms/CreateProfile";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/auth/Login";
@@ -40,6 +41,15 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <Dashboard />
+                  {/*  this will act as children for PrivateRoute */}
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/create-profile"
+              element={
+                <PrivateRoute>
+                  <CreateProfile />
                   {/*  this will act as children for PrivateRoute */}
                 </PrivateRoute>
               }
