@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import Spinner from "../layouts/Spinner";
 import { getCurrentProfile } from "../../actions/profile";
 import DashboardActions from "./DashboardActions";
+import Experience from "./Experience";
+import Education from "./Education";
 
 const Dashboard = ({ profile, getCurrentProfile, auth, loading }) => {
   useEffect(() => {
@@ -22,6 +24,8 @@ const Dashboard = ({ profile, getCurrentProfile, auth, loading }) => {
         {profile !== null ? (
           <Fragment>
             <DashboardActions />
+            <Experience experience={profile.experience} />
+            <Education education={profile.education} />
           </Fragment>
         ) : (
           <Fragment>
