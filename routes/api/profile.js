@@ -7,6 +7,7 @@ const githubSecret = config.get("githubSecret");
 const auth = require("../../middleware/auth");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
+const Post = require("../../models/Post");
 const { check, validationResult } = require("express-validator");
 // @route GET api/profile/me
 // @desc  Get current users profile
@@ -152,7 +153,7 @@ router.get("/user/:user_id", async (req, res) => {
 router.delete("/", auth, async (req, res) => {
   try {
     //Delete Posts
-
+    await Post.deleteMany({ user: req.user.id });
     //Delete Profile
     await Profile.findOneAndDelete({ user: req.user.id });
 
