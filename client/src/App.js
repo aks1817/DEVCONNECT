@@ -7,6 +7,7 @@ import EditProfile from "./components/profile-forms/EditProfile";
 import AddExperience from "./components/profile-forms/AddExperience";
 import AddEducation from "./components/profile-forms/AddEducation";
 import CreateProfile from "./components/profile-forms/CreateProfile";
+import Profiles from "./components/profiles/Profiles";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/auth/Login";
@@ -39,6 +40,7 @@ const App = () => {
             <Route exact path="/" element={<Landing />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/profiles" element={<Profiles />} />
             <Route
               path="/dashboard"
               element={
