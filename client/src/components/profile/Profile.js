@@ -6,6 +6,8 @@ import { getProfileById } from "../../actions/profile";
 import Spinner from "../layouts/Spinner";
 import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
+import ProfileExperience from "./ProfileExperience";
+import ProfileEducation from "./ProfileEducation";
 
 const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
   const { id } = useParams(); //This is used to get id from req,params
@@ -31,6 +33,30 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
           <div className="profile-grid my-1">
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
+            <div className="profile-exp bg-white p-2">
+              <h2 className="text-primary">Experience</h2>
+              {profile.experience.length > 0 ? (
+                <Fragment>
+                  {profile.experience.map((exp) => (
+                    <ProfileExperience key={exp._id} experience={exp} />
+                  ))}
+                </Fragment>
+              ) : (
+                <h4>No Experience</h4>
+              )}
+            </div>
+            <div class="profile-edu bg-white p-2">
+              <h2 class="text-primary">Education</h2>
+              {profile.education.length > 0 ? (
+                <Fragment>
+                  {profile.education.map((edu) => (
+                    <ProfileEducation key={edu._id} education={edu} />
+                  ))}
+                </Fragment>
+              ) : (
+                <h4>No Education Added</h4>
+              )}
+            </div>
           </div>
         </Fragment>
       )}
