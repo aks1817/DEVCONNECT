@@ -150,7 +150,7 @@ router.put("/unlike/:id", auth, async (req, res) => {
 // @desc  Comment on a post
 // @access Private
 
-router.put(
+router.post(
   "/comment/:id",
   [auth, check("text", "Text is required").not().isEmpty()],
   async (req, res) => {
@@ -171,8 +171,8 @@ router.put(
         avatar: user.avatar,
       };
       post.comments.unshift(newComment);
-      post.save();
-      res.json(post);
+      await post.save();
+      res.json(post.comments);
     } catch (err) {
       console.log(err.message);
       res.status(500).send("Server error");
@@ -207,8 +207,8 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
       .indexOf(req.params.comment_id);
 
     post.comments.splice(removeIndex, 1);
-    post.save();
-    res.json(post);
+    await post.save();
+    res.json(post.comments);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server error");

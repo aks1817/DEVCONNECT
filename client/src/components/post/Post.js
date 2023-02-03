@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import Spinner from "../layouts/Spinner";
 import { getPost } from "../../actions/post";
 import PostItem from "../posts/PostItem";
+import CommentForm from "./CommentForm";
 
 const Post = ({ getPost, post: { post, loading } }) => {
   const { id } = useParams(); //This is used to get id from req,params
@@ -21,6 +22,7 @@ const Post = ({ getPost, post: { post, loading } }) => {
             Back To Posts
           </Link>
           <PostItem post={post} showActions={false} />
+          <CommentForm postId={post._id} />
         </Fragment>
       )}
     </div>
