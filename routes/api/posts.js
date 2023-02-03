@@ -110,8 +110,8 @@ router.put("/like/:id", auth, async (req, res) => {
       user: req.user.id,
     };
     post.likes.unshift(newLike);
-    post.save();
-    res.json(post);
+    await post.save();
+    res.json(post.likes);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server error");
@@ -138,8 +138,8 @@ router.put("/unlike/:id", auth, async (req, res) => {
       .indexOf(req.user.id);
 
     post.likes.splice(removeIndex, 1);
-    post.save();
-    res.json(post);
+    await post.save();
+    res.json(post.likes);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server error");
