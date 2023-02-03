@@ -10,6 +10,7 @@ import CreateProfile from "./components/profile-forms/CreateProfile";
 import Profile from "./components/profile/Profile";
 import Profiles from "./components/profiles/Profiles";
 import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/auth/Login";
@@ -94,6 +95,15 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <Posts />
+                  {/*  this will act as children for PrivateRoute */}
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/post/:id"
+              element={
+                <PrivateRoute>
+                  <Post />
                   {/*  this will act as children for PrivateRoute */}
                 </PrivateRoute>
               }

@@ -4,6 +4,7 @@ import {
   UPDATE_LIKES,
   DELETE_POST,
   ADD_POST,
+  GET_POST,
 } from "../actions/types";
 
 const initialState = {
@@ -44,6 +45,8 @@ const post = (state = initialState, action) => {
       };
     case ADD_POST:
       return { ...state, posts: [...state.posts, payload], loading: false };
+    case GET_POST:
+      return { ...state, post: payload, loading: false };
     default:
       return state;
   }
